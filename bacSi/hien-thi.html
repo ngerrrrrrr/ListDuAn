@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Thêm bác sĩ:
+<form th:object="${bacSi}" action="/bac-si/add" method="post">
+    Id: <input type="text" name="id"><br>
+    Tên: <input type="text" th:field="*{ten}">
+    <span style="color: red" th:errors="*{ten}"></span><br>
+    Lương: <input type="text" th:field="*{luong}">
+    <span style="color: red" th:errors="*{luong}"></span><br>
+    Giới tính:<br>
+    Nam <input type="radio" name="gioiTinh" value="false" th:field="*{gioiTinh}">
+    Nữ <input type="radio" name="gioiTinh" value="true" th:field="*{gioiTinh}">
+    <span style="color: red" th:errors="*{gioiTinh}"></span><br>
+    Phòng khám:
+    <select name="phongKham">
+        <option value="">Vui lòng chọn phòng khám</option>
+        <option th:each="phongKham : ${ListPhongKham}"
+                th:value="${phongKham.id}" th:text="${phongKham.ten}"
+        ></option>
+    </select>
+    <span style="color: red" th:errors="*{phongKham}"></span>
+    <br>
+    <button>Submit</button>
+</form>
+<br>
+Danh sách:
+<table border="1" style="border-collapse: separate">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Lương</th>
+        <th>Giới tính</th>
+        <th>Phòng khám</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="bacSi : ${ListBacSi}">
+        <tr>
+            <td th:text="${bacSi.id}"></td>
+            <td th:text="${bacSi.ten}"></td>
+            <td th:text="${bacSi.luong}"></td>
+            <td th:text="${bacSi.gioiTinh ? 'Nữ' : 'Nam'}"></td>
+            <td th:text="${bacSi.phongKham.ten}"></td>
+            <td>
+                <button><a th:href="@{|/bac-si/detail/${bacSi.id}|}">Detail</a></button>
+                <button><a th:href="@{|/bac-si/delete?id=${bacSi.id}|}">Delete</a></button>
+                <button>
+                    <a th:href="@{|/bac-si/view-update/${bacSi.id}|}">Update</a></button>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" style="border-collapse: separate">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Lương</th>
+        <th>Giới tính</th>
+        <th>Phòng khám</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="bacSi : ${page.getContent()}">
+        <tr>
+            <td th:text="${bacSi.id}"></td>
+            <td th:text="${bacSi.ten}"></td>
+            <td th:text="${bacSi.luong}"></td>
+            <td th:text="${bacSi.gioiTinh ? 'Nữ' : 'Nam'}"></td>
+            <td th:text="${bacSi.phongKham.ten}"></td>
+            <td>
+                <button><a th:href="@{|/bac-si/detail/${bacSi.id}|}">Detail</a></button>
+                <button><a th:href="@{|/bac-si/delete?id=${bacSi.id}|}">Delete</a></button>
+                <button>
+                    <a th:href="@{|/bac-si/view-update/${bacSi.id}|}">Update</a></button>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<a th:href="@{|/bac-si/phan-trang?page=0|}"><button>First</button></a>
+<a th:href="@{|/bac-si/phan-trang?page=${page.isFirst() ? 0 : page.getNumber() - 1}|}"><button>Prev</button></a>
+<a th:href="@{|/bac-si/phan-trang?page=${page.isLast() ? page.getNumber() : page.getNumber() + 1}|}"><button>Next</button></a>
+<a th:href="@{|/bac-si/phan-trang?page=${page.getTotalPages() - 1 }}"><button>Prev</button></a>
+</body>
+</html>

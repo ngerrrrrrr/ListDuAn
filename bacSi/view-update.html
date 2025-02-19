@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/bac-si/update" method="post">
+  Id: <input type="text" name="id" th:value="${bacSi.id}" readonly><br>
+  Tên: <input type="text" name="ten" th:value="${bacSi.ten}"><br>
+  Lương: <input type="text" name="luong" th:value="${bacSi.luong}"><br>
+  Giới tính:<br>
+  Nam <input type="radio" name="gioiTinh" value="false" th:checked="${bacSi.gioiTinh == false}">
+  Nữ <input type="radio" name="gioiTinh" value="true" th:checked="${bacSi.gioiTinh == true}"><br>
+  Phòng khám:
+  <select name="phongKham" th:value="${bacSi.phongKham.id}">
+    <option th:each="phongKham : ${ListPhongKham}"
+            th:value="${phongKham.id}" th:text="${phongKham.ten}"
+    ></option>
+  </select><br>
+  <button>Submit</button>
+</form>
+</body>
+</html>
