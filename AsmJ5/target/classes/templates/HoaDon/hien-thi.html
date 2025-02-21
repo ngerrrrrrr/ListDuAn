@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Hóa Đơn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background: red;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .form-container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            width: 30%;
+            text-align: left;
+        }
+
+        input, select {
+            width: 65%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Quản Lý Bán Hàng</h2>
+    <div class="nav">
+        <div class="nav-item"><a href="/ban-hang/trang-chu" style="color: white; text-decoration: none;">Trang chủ</a>
+        </div>
+        <div class="nav-item"><a href="/nhan-vien/hien-thi" style="color: white; text-decoration: none;">Nhân Viên</a>
+        </div>
+        <div class="nav-item"><a href="/khach-hang/hien-thi" style="color: white; text-decoration: none;">Khách Hàng</a>
+        </div>
+        <div class="nav-item">
+            Sản Phẩm
+            <div class="dropdown">
+                <a href="/san-pham/hien-thi">Sản Phẩm</a>
+                <a href="/san-pham-chi-tiet/hien-thi">Sản Phẩm Chi Tiết</a>
+                <a href="/mau-sac/hien-thi">Màu Sắc</a>
+                <a href="/kich-thuoc/hien-thi">Kích Thước</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Hóa Đơn
+            <div class="dropdown">
+                <a href="/hoa-don/hien-thi">Hóa Đơn</a>
+                <a href="/hoa-don-chi-tiet/hien-thi">Hóa Đơn Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <form action="/hoa-don/add" method="post" th:object="${hoaDon}" class="form-container">
+        <h2>Thêm Hóa Đơn</h2>
+
+        <!-- Combobox Chọn Khách Hàng -->
+        <div class="form-group">
+            <label>Mã Khách Hàng:</label>
+            <select th:field="*{khachHang}">
+                <option th:each="kh : ${ListKhachHang}" th:value="${kh.id}" th:text="${kh.ma}"></option>
+            </select>
+            <span class="error" th:errors="*{khachHang}"></span>
+        </div>
+
+        <!-- Combobox Chọn Nhân Viên -->
+        <div class="form-group">
+            <label>Mã Nhân Viên:</label>
+            <select th:field="*{nhanVien}">
+                <option th:each="nv : ${ListNhanVien}" th:value="${nv.id}" th:text="${nv.ma}"></option>
+            </select>
+            <span class="error" th:errors="*{nhanVien}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Ngày Mua:</label>
+            <input type="date" th:field="*{ngayMua}">
+            <span class="error" th:errors="*{ngayMua}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Không hoạt động
+            <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Hoạt động
+            <span class="error" th:errors="*{trangThai}"></span>
+        </div>
+
+        <button type="submit" class="btn">Thêm Hóa Đơn</button>
+    </form>
+    <h2>Danh Sách Hóa Đơn</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Mã Khách Hàng</th>
+            <th>Mã Nhân Viên</th>
+            <th>Ngày Mua</th>
+            <th>Trạng Thái</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hd : ${danhSachHd}">
+            <td th:text="${hd.id}"></td>
+            <td th:text="${hd.khachHang.ma}"></td>
+            <td th:text="${hd.nhanVien.ma}"></td>
+            <td th:text="${hd.ngayMua}"></td>
+            <td th:text="${hd.trangThai} ? 'Hoạt động' : 'Không hoạt động'"></td>
+            <td>
+                <a th:href="@{/hoa-don/view-update/{id}(id=${hd.id})}" class="btn">Sửa</a>
+                <a th:href="@{/hoa-don/delete(id=${hd.id})}" class="btn btn-delete">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

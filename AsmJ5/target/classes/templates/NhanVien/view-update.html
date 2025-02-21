@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update nhân viên</title>
+</head>
+<style>
+    /* Reset mặc định */
+    /* Reset mặc định */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* Bố cục form */
+    form {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+
+    /* Tiêu đề */
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Bố cục hàng ngang */
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    /* Nhãn (label) */
+    label {
+        width: 120px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Ô nhập */
+    input[type="text"], input[type="password"] {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    /* Hiển thị lỗi */
+    span[th:errors
+
+    ]
+    {
+        color: red
+    ;
+        font-size: 12px
+    ;
+        display: block
+    ;
+        margin-left: 120px
+    ;
+    }
+
+    /* Trạng thái (radio buttons) */
+    .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Nút Submit */
+    button {
+        width: 100%;
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #218838;
+    }
+
+    .btn-back {
+        background: gray;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        color: white;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .btn-back:hover {
+        background: darkgray;
+    }
+</style>
+<body>
+<div class="container">
+    <form action="/nhan-vien/update" method="post" th:object="${nhanVien}">
+        <h2>Update nhân viên</h2>
+        <div class="form-group">
+            <label>Id:</label>
+            <input type="text" th:field="*{id}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Tên:</label>
+            <input type="text" th:field="*{ten}">
+        </div>
+        <span th:errors="*{ten}"></span>
+
+        <div class="form-group">
+            <label>Mã:</label>
+            <input type="text" th:field="*{ma}">
+        </div>
+        <span th:errors="*{ma}"></span>
+
+        <div class="form-group">
+            <label>Tên đăng nhập:</label>
+            <input type="text" th:field="*{account}">
+        </div>
+        <span th:errors="*{account}"></span>
+
+        <div class="form-group">
+            <label>Mật khẩu:</label>
+            <input type="password" th:field="*{pass}">
+        </div>
+        <span th:errors="*{pass}"></span>
+
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <div class="radio-group">
+                <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Không hoạt động
+                <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Hoạt động
+            </div>
+        </div>
+        <span th:errors="*{trangThai}"></span>
+
+        <button>Update</button>
+    </form>
+    <br>
+    <a href="/nhan-vien/hien-thi" class="btn-back">Quay lại danh sách</a>
+</div>
+</body>
+</html>

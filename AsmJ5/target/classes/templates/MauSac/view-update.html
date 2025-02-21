@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cập nhật Màu Sắc</title>
+</head>
+<style>
+  /* Reset CSS */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Container */
+  .container {
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+  }
+
+  /* Tiêu đề */
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  /* Form */
+  .form-container {
+    width: 100%;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  label {
+    font-weight: bold;
+    width: 30%;
+    text-align: left;
+  }
+
+  input[type="text"] {
+    width: 65%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .error {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+  }
+
+  /* Button */
+  .btn {
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .btn:hover {
+    background: #218838;
+  }
+
+  .btn-back {
+    background: gray;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .btn-back:hover {
+    background: darkgray;
+  }
+</style>
+<body>
+<div class="container">
+  <h2>Cập nhật Màu Sắc</h2>
+
+  <form action="/mau-sac/update" method="post" th:object="${mauSac}" class="form-container">
+    <input type="hidden" th:field="*{id}">
+
+    <div class="form-group">
+      <label>Mã:</label>
+      <input type="text" th:field="*{ma}">
+      <span class="error" th:errors="*{ma}"></span>
+    </div>
+    <div class="form-group">
+      <label>Tên:</label>
+      <input type="text" th:field="*{ten}">
+      <span class="error" th:errors="*{ten}"></span>
+    </div>
+    <div class="form-group">
+      <label>Trạng thái:</label>
+      <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Hết
+      <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Còn
+      <span class="error" th:errors="*{trangThai}"></span>
+    </div>
+    <button type="submit" class="btn">Cập nhật</button>
+  </form>
+
+  <br>
+  <a href="/mau-sac/hien-thi" class="btn">Quay lại danh sách</a>
+</div>
+</body>
+</html>

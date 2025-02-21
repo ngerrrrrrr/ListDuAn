@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật Hóa Đơn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            width: 30%;
+            text-align: left;
+        }
+
+        input, select {
+            width: 65%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .btn-back {
+            background: gray;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-back:hover {
+            background: darkgray;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Cập nhật Hóa Đơn</h2>
+
+    <form action="/hoa-don/update" method="post" th:object="${hoaDon}" class="form-container">
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Combobox Chọn Khách Hàng -->
+        <div class="form-group">
+            <label>Mã Khách Hàng:</label>
+            <select th:field="*{khachHang}">
+                <option th:each="kh : ${ListKhachHang}" th:value="${kh.id}" th:text="${kh.ma}"></option>
+            </select>
+            <span class="error" th:errors="*{khachHang}"></span>
+        </div>
+
+        <!-- Combobox Chọn Nhân Viên -->
+        <div class="form-group">
+            <label>Mã Nhân Viên:</label>
+            <select th:field="*{nhanVien}">
+                <option th:each="nv : ${ListNhanVien}" th:value="${nv.id}" th:text="${nv.ma}"></option>
+            </select>
+            <span class="error" th:errors="*{nhanVien}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Ngày Mua:</label>
+            <input type="text" th:field="*{ngayMua}">
+            <span class="error" th:errors="*{ngayMua}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Không hoạt động
+            <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Hoạt động
+            <span class="error" th:errors="*{trangThai}"></span>
+        </div>
+
+        <button type="submit" class="btn">Cập nhật</button>
+    </form>
+
+    <br>
+    <a href="/hoa-don/hien-thi" class="btn-back">Quay lại danh sách</a>
+</div>
+</body>
+</html>

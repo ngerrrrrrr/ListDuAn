@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cập Nhật Sản Phẩm Chi Tiết</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        select, input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        span[th:errors
+
+        ]
+        {
+            color: red
+        ;
+            font-size: 12px
+        ;
+            margin-top: 5px
+        ;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<form action="/san-pham-chi-tiet/update" method="post" th:object="${sanPhamChiTiet}" class="form-container">
+    <h2>Thêm Sản Phẩm Chi Tiết</h2>
+
+    <div class="form-group">
+        <input type="hidden" th:field="*{id}">
+        <label>Sản Phẩm:</label>
+        <select th:field="*{sanPham}">
+            <option th:each="sp : ${ListSanPham}" th:value="${sp.id}" th:text="${sp.ten}"></option>
+        </select>
+        <span class="error" th:errors="*{sanPham}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Màu Sắc:</label>
+        <select th:field="*{mauSac}">
+            <option th:each="ms : ${ListMauSac}" th:value="${ms.id}" th:text="${ms.ten}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Kích Thước:</label>
+        <select th:field="*{kichThuoc}">
+            <option th:each="kt : ${ListKichThuoc}" th:value="${kt.id}" th:text="${kt.ten}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Số Lượng:</label>
+        <input type="number" th:field="*{soLuong}"/>
+        <span class="error" th:errors="*{soLuong}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Đơn Giá:</label>
+        <input type="number" th:field="*{donGia}" step="0.01"/>
+        <span class="error" th:errors="*{donGia}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Trạng Thái:</label>
+        <div class="radio-group">
+            <input type="radio" name="trangThai" value="true"> Còn hàng
+            <input type="radio" name="trangThai" value="false"> Hết hàng
+        </div>
+        <span class="error" th:errors="*{trangThai}" style="color: red"></span>
+
+    </div>
+
+    <button type="submit" class="btn">Thêm</button>
+    <a href="/san-pham-chi-tiet/hien-thi" style="text-align: center">Quay lại danh sách</a>
+
+</form>
+
+</body>
+</html>

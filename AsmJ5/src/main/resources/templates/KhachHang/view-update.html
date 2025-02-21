@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập Nhật Khách Hàng</title>
+    <style>
+        /* Reset mặc định */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Bố cục form */
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        /* Tiêu đề */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Bố cục hàng ngang */
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Nhãn (label) */
+        label {
+            width: 120px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Ô nhập */
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Trạng thái (radio buttons) */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Nút Submit */
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Quản lý Khách Hàng</h2>
+
+    <!-- Form thêm khách hàng -->
+    <form action="/khach-hang/update" method="post" th:object="${khachHang}" class="form-container">
+        <h3>Update Khách Hàng</h3>
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}">
+            <label>Mã KH:</label>
+            <input type="text" th:field="*{ma}">
+            <span class="error" th:errors="*{ma}"></span>
+        </div>
+        <div class="form-group">
+            <label>Tên:</label>
+            <input type="text" th:field="*{ten}">
+            <span class="error" th:errors="*{ten}"></span>
+        </div>
+        <div class="form-group">
+            <label>Số ĐT:</label>
+            <input type="text" th:field="*{sdt}">
+            <span class="error" th:errors="*{sdt}"></span>
+        </div>
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Không hoạt động
+            <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Hoạt động
+            <span class="error" th:errors="*{trangThai}"></span>
+        </div>
+        <button type="submit" class="btn">Update</button>
+    </form>
+    <a href="/khach-hang/hien-thi" style="text-align: center">Quay lại danh sách</a>
+
+</div>
+</body>
+</html>

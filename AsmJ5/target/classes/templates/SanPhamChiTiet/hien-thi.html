@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Sản Phẩm Chi Tiết</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .form-container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .btn-delete:hover {
+            background: darkred;
+        }
+
+        .btn-update:hover {
+            background: darkorange;
+        }
+
+        .btn-delete {
+            color: white;
+            background: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .btn-update {
+            color: white;
+            background: orange;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 65%;
+        }
+
+        .radio-group input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .radio-group input[type="radio"]:checked {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .radio-group input[type="radio"]:checked::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Quản Lý Bán Hàng</h2>
+    <div class="nav">
+        <div class="nav-item"><a href="/ban-hang/trang-chu" style="color: white; text-decoration: none;">Trang chủ</a>
+        </div>
+        <div class="nav-item"><a href="/nhan-vien/hien-thi" style="color: white; text-decoration: none;">Nhân Viên</a>
+        </div>
+        <div class="nav-item"><a href="/khach-hang/hien-thi" style="color: white; text-decoration: none;">Khách Hàng</a>
+        </div>
+        <div class="nav-item">
+            Sản Phẩm
+            <div class="dropdown">
+                <a href="/san-pham/hien-thi">Sản Phẩm</a>
+                <a href="/san-pham-chi-tiet/hien-thi">Sản Phẩm Chi Tiết</a>
+                <a href="/mau-sac/hien-thi">Màu Sắc</a>
+                <a href="/kich-thuoc/hien-thi">Kích Thước</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Hóa Đơn
+            <div class="dropdown">
+                <a href="/hoa-don/hien-thi">Hóa Đơn</a>
+                <a href="/hoa-don-chi-tiet/hien-thi">Hóa Đơn Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Danh sách Sản Phẩm Chi Tiết</h1>
+
+<form action="/san-pham-chi-tiet/add" method="post" th:object="${sanPhamChiTiet}" class="form-container">
+    <h2>Thêm Sản Phẩm Chi Tiết</h2>
+
+    <div class="form-group">
+        <label>Sản Phẩm:</label>
+        <select th:field="*{sanPham}">
+            <option th:each="sp : ${ListSanPham}" th:value="${sp.id}" th:text="${sp.ten}"></option>
+        </select>
+        <span class="error" th:errors="*{sanPham}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Màu Sắc:</label>
+        <select th:field="*{mauSac}">
+            <option th:each="ms : ${ListMauSac}" th:value="${ms.id}" th:text="${ms.ten}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Kích Thước:</label>
+        <select th:field="*{kichThuoc}">
+            <option th:each="kt : ${ListKichThuoc}" th:value="${kt.id}" th:text="${kt.ten}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Số Lượng:</label>
+        <input type="number" th:field="*{soLuong}"/>
+        <span class="error" th:errors="*{soLuong}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Đơn Giá:</label>
+        <input type="number" th:field="*{donGia}" step="0.01"/>
+        <span class="error" th:errors="*{donGia}" style="color: red"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Trạng Thái:</label>
+        <div class="radio-group">
+            <input type="radio" name="trangThai" value="true"> Còn hàng
+            <input type="radio" name="trangThai" value="false"> Hết hàng
+        </div>
+        <span class="error" th:errors="*{trangThai}" style="color: red"></span>
+
+    </div>
+
+    <button type="submit" class="btn">Thêm</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Sản Phẩm</th>
+        <th>Màu Sắc</th>
+        <th>Kích Thước</th>
+        <th>Số Lượng</th>
+        <th>Đơn Giá</th>
+        <th>Trạng Thái</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="spct : ${danhSachSpct}">
+        <td th:text="${spct.id}"></td>
+        <td th:text="${spct.sanPham.ten}"></td>
+        <td th:text="${spct.mauSac.ten}"></td>
+        <td th:text="${spct.kichThuoc.ten}"></td>
+        <td th:text="${spct.soLuong}"></td>
+        <td th:text="${spct.donGia}"></td>
+        <td th:text="${spct.trangThai ? 'Còn hàng' : 'Hết hàng'}"></td>
+        <td>
+            <a th:href="@{|/san-pham-chi-tiet/delete?id=${spct.id}|}" class="btn-delete">Xóa</a>
+            <a th:href="@{|/san-pham-chi-tiet/view-update/${spct.id}|}" class="btn-update">Sửa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

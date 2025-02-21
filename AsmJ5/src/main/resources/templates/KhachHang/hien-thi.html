@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Khách Hàng</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Tiêu đề */
+        h2, h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Form */
+        .form-container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        /* Tiêu đề */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Bố cục hàng ngang */
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Nhãn (label) */
+        label {
+            width: 120px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Ô nhập */
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input[type="radio"]{
+            margin: 10px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Trạng thái (radio buttons) */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Nút Submit */
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* Button */
+        .btn {
+            padding: 10px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #218838;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        /* Action buttons */
+        .btn-delete {
+            color: white;
+            background: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .btn-update {
+            color: white;
+            background: orange;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-delete:hover {
+            background: darkred;
+        }
+
+        .btn-update:hover {
+            background: darkorange;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Quản Lý Bán Hàng</h2>
+    <div class="nav">
+        <div class="nav-item"><a href="/ban-hang/trang-chu" style="color: white; text-decoration: none;">Trang chủ</a>
+        </div>
+        <div class="nav-item"><a href="/nhan-vien/hien-thi" style="color: white; text-decoration: none;">Nhân Viên</a>
+        </div>
+        <div class="nav-item"><a href="/khach-hang/hien-thi" style="color: white; text-decoration: none;">Khách Hàng</a>
+        </div>
+        <div class="nav-item">
+            Sản Phẩm
+            <div class="dropdown">
+                <a href="/san-pham/hien-thi">Sản Phẩm</a>
+                <a href="/san-pham-chi-tiet/hien-thi">Sản Phẩm Chi Tiết</a>
+                <a href="/mau-sac/hien-thi">Màu Sắc</a>
+                <a href="/kich-thuoc/hien-thi">Kích Thước</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Hóa Đơn
+            <div class="dropdown">
+                <a href="/hoa-don/hien-thi">Hóa Đơn</a>
+                <a href="/hoa-don-chi-tiet/hien-thi">Hóa Đơn Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Quản lý Khách Hàng</h2>
+
+    <!-- Form thêm khách hàng -->
+    <form action="/khach-hang/add" method="post" th:object="${khachHang}" class="form-container">
+        <h3>Thêm Khách Hàng</h3>
+        <div class="form-group">
+            <label>Mã KH:</label>
+            <input type="text" th:field="*{ma}">
+            <span class="error" th:errors="*{ma}"></span>
+        </div>
+        <div class="form-group">
+            <label>Tên:</label>
+            <input type="text" th:field="*{ten}">
+            <span class="error" th:errors="*{ten}"></span>
+        </div>
+        <div class="form-group">
+            <label>Số ĐT:</label>
+            <input type="text" th:field="*{sdt}">
+            <span class="error" th:errors="*{sdt}"></span>
+        </div>
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <input type="radio" name="trangThai" value="false" th:field="*{trangThai}"> Không hoạt động
+            <input type="radio" name="trangThai" value="true" th:field="*{trangThai}"> Hoạt động
+            <span class="error" th:errors="*{trangThai}"></span>
+        </div>
+        <button type="submit" class="btn">Thêm</button>
+    </form>
+
+    <!-- Danh sách khách hàng -->
+    <h3>Danh sách Khách Hàng</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Mã KH</th>
+            <th>Tên</th>
+            <th>Số ĐT</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="khachHang : ${danhSachKh}">
+            <tr>
+                <td th:text="${khachHang.id}"></td>
+                <td th:text="${khachHang.ma}"></td>
+                <td th:text="${khachHang.ten}"></td>
+                <td th:text="${khachHang.sdt}"></td>
+                <td th:text="${khachHang.trangThai ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                <td>
+                    <a th:href="@{|/khach-hang/delete?id=${khachHang.id}|}" class="btn-delete">Xóa</a>
+                    <a th:href="@{|/khach-hang/view-update/${khachHang.id}|}" class="btn-update">Sửa</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

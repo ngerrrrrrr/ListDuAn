@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Hóa Đơn Chi Tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px #ccc;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 0px 10px #ccc;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Quản Lý Bán Hàng</h2>
+    <div class="nav">
+        <div class="nav-item"><a href="/ban-hang/trang-chu" style="color: white; text-decoration: none;">Trang chủ</a>
+        </div>
+        <div class="nav-item"><a href="/nhan-vien/hien-thi" style="color: white; text-decoration: none;">Nhân Viên</a>
+        </div>
+        <div class="nav-item"><a href="/khach-hang/hien-thi" style="color: white; text-decoration: none;">Khách Hàng</a>
+        </div>
+        <div class="nav-item">
+            Sản Phẩm
+            <div class="dropdown">
+                <a href="/san-pham/hien-thi">Sản Phẩm</a>
+                <a href="/san-pham-chi-tiet/hien-thi">Sản Phẩm Chi Tiết</a>
+                <a href="/mau-sac/hien-thi">Màu Sắc</a>
+                <a href="/kich-thuoc/hien-thi">Kích Thước</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Hóa Đơn
+            <div class="dropdown">
+                <a href="/hoa-don/hien-thi">Hóa Đơn</a>
+                <a href="/hoa-don-chi-tiet/hien-thi">Hóa Đơn Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Danh sách Hóa Đơn Chi Tiết</h2>
+
+<!-- Form Thêm -->
+<form th:action="@{/hoa-don-chi-tiet/add}" method="post" th:object="${hoaDonChiTiet}">
+    <h2>Thêm hóa đơn chi tiết</h2>
+    <label>Hóa đơn:</label>
+    <select th:field="*{hoaDon.id}" >
+        <option value="">-- Chọn Hóa Đơn --</option>
+        <option th:each="hd : ${ListHoaDon}" th:value="${hd.id}" th:text="${hd.id}"></option>
+    </select>
+    <span class="error" th:errors="*{hoaDon}"></span>
+
+
+    <label>Sản phẩm:</label>
+    <select th:field="*{sanPhamChiTiet.id}" >
+        <option value="">-- Chọn Sản Phẩm --</option>
+        <option th:each="sp : ${danhSachSanPhamChiTiet}" th:value="${sp.id}" th:text="${sp.id}"></option>
+    </select>
+    <span class="error" th:errors="*{sanPhamChiTiet}"></span>
+
+
+    <label>Số lượng:</label>
+    <input type="number" th:field="*{soLuong}" min="1">
+    <span class="error" th:errors="*{soLuong}" style="color: red"></span>
+
+
+    <label>Đơn giá:</label>
+    <input type="text" th:field="*{donGia}">
+    <span class="error" th:errors="*{donGia}" style="color: red"></span>
+
+
+    <label>Trạng thái:</label>
+    <input type="radio" th:field="*{trangThai}" value="true"> Hoạt động
+    <input type="radio" th:field="*{trangThai}" value="false"> Không hoạt động
+    <span class="error" th:errors="*{trangThai}" style="color: red"></span>
+
+
+    <button type="submit">Thêm</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Hóa Đơn</th>
+        <th>Sản Phẩm</th>
+        <th>Số Lượng</th>
+        <th>Đơn Giá</th>
+        <th>Trạng Thái</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hdct : ${danhSachHdct}">
+        <td th:text="${hdct.id}"></td>
+        <td th:text="${hdct.hoaDon.id}"></td>
+        <td th:text="${hdct.sanPhamChiTiet.id}"></td>
+        <td th:text="${hdct.soLuong}"></td>
+        <td th:text="${hdct.donGia}"></td>
+        <td th:text="${hdct.trangThai ? 'Hoạt động' : 'Không hoạt động'}"></td>
+        <td>
+            <a th:href="@{/hoa-don-chi-tiet/view-update/{id}(id=${hdct.id})}">Sửa</a> |
+            <a th:href="@{/hoa-don-chi-tiet/delete(id=${hdct.id})}"
+               onclick="return confirm('Xóa hóa đơn chi tiết này?')">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

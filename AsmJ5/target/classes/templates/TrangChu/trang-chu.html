@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<head>
+    <title>Trang Chủ - Quản Lý Bán Hàng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .content {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Quản Lý Bán Hàng</h2>
+    <div class="nav">
+        <div class="nav-item"><a href="/ban-hang/trang-chu" style="color: white; text-decoration: none;">Trang chủ</a>
+        </div>
+        <div class="nav-item"><a href="/nhan-vien/hien-thi" style="color: white; text-decoration: none;">Nhân Viên</a>
+        </div>
+        <div class="nav-item"><a href="/khach-hang/hien-thi" style="color: white; text-decoration: none;">Khách Hàng</a>
+        </div>
+        <div class="nav-item">
+            Sản Phẩm
+            <div class="dropdown">
+                <a href="/san-pham/hien-thi">Sản Phẩm</a>
+                <a href="/san-pham-chi-tiet/hien-thi">Sản Phẩm Chi Tiết</a>
+                <a href="/mau-sac/hien-thi">Màu Sắc</a>
+                <a href="/kich-thuoc/hien-thi">Kích Thước</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            Hóa Đơn
+            <div class="dropdown">
+                <a href="/hoa-don/hien-thi">Hóa Đơn</a>
+                <a href="/hoa-don-chi-tiet/hien-thi">Hóa Đơn Chi Tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <h2 th:text="${tittle}"></h2>
+    <p>Chọn một danh mục từ menu trên để bắt đầu.</p>
+</div>
+</body>
+</html>
